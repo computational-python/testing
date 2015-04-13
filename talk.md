@@ -275,9 +275,11 @@ well defined task
         unittest.main()
 ```
 
+---
+
 ### Example
 
-```
+```python
     #test_calculate.py
     import unittest
     import calculate
@@ -296,10 +298,10 @@ well defined task
         unittest.main()
 
 ```
-
+---
 
 ### Run test
-```
+```bash
     $ python test_calculate.py
     .F
     ======================================================================
@@ -315,6 +317,7 @@ well defined task
 
     FAILED (failures=1)
 ```
+---
 
 ### Run verbose test
 
@@ -337,6 +340,7 @@ well defined task
     FAILED (failures=1)
 ```
 
+---
 
 
 ### Fix the bug
@@ -358,7 +362,7 @@ OK
 ```
 
 ---
-## Other tests
+## Other helper functions tests
 
 * ``assertNotEqual``
 
@@ -460,57 +464,8 @@ or verbose
     .> /usr/lib/python2.7/unittest/case.py(508)_baseAssertEqual()
     -> raise self.failureException(msg)
     (Pdb)
-    (Pdb) where
-      /usr/lib/python2.7/unittest/case.py(331)run()
-    -> testMethod()
-      /home/olav/Dropbox/Python/hieroglyph/test_calculate.py(18)testsub()
-    -> self.assertEqual(res, 0)
-      /usr/lib/python2.7/unittest/case.py(515)assertEqual()
-    -> assertion_func(first, second, msg=msg)
-    > /usr/lib/python2.7/unittest/case.py(508)_baseAssertEqual()
-    -> raise self.failureException(msg)
-    (Pdb)
 ```
 
----
-
-```
-    (Pdb) list
-    503  	    def _baseAssertEqual(self, first, second, msg=None):
-    504  	        """The default assertEqual implementation, not type specific."""
-    505  	        if not first == second:
-    506  	            standardMsg = '%s != %s' % (safe_repr(first), safe_repr(second))
-    507  	            msg = self._formatMessage(msg, standardMsg)
-    508  ->	            raise self.failureException(msg)
-    509  	
-    510  	    def assertEqual(self, first, second, msg=None):
-    511  	        """Fail if the two objects are unequal as determined by the '=='
-    512  	           operator.
-    513  	        """
-```
----
-
-```
-    (Pdb) up
-    > /usr/lib/python2.7/unittest/case.py(515)assertEqual()
-    -> assertion_func(first, second, msg=msg)
-
-    (Pdb) up
-    > /home/olav/Dropbox/Python/hieroglyph/test_calculate.py(18)testsub()
-    -> self.assertEqual(res, 0)
-
-    (Pdb) list
-     13  	            res = calculate.add(1, 1)
-     14  	            self.assertEqual(res,  2)
-     15  	
-     16  	        def testsub(self):
-     17  	            res = calculate.sub(1, 1)
-     18  ->	            self.assertEqual(res, 0)
-     19  	
-     20  	    if __name__ == "__main__":
-     21  	        unittest.main()
-
-```
 
 Once in the debugger it is possible to examine variables, execute functions
 
