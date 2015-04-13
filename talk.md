@@ -210,7 +210,7 @@ Correct the bug
 Rerun
 
 ```
-    $ python calcaulate.py
+    $ python calculate.py
     $
 ```
 silent - all ok
