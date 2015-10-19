@@ -2,7 +2,7 @@
 
 ## Olav Vahtras
 
-Potsdam 2015-09-24
+Computational Python
 
 ---
 
