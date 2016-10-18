@@ -129,6 +129,8 @@ To add new functionality, e.g. a function
 
 * nosetests: a commonly used third-party tool for running tests
 
+* pytest: a commonly used third-party tool for running tests
+
 ---
 
 ## Doctest
@@ -516,7 +518,7 @@ and which lines that we missed
 
 * Use ``unittest`` to code your tests, 
 
-* Use ``nosetests`` to execute your tests, optionally with debugging and coverage
+* Use ``nosetests`` or `py.test` to execute your tests, optionally with debugging and coverage
 
 ---
 
@@ -533,3 +535,8 @@ and which lines that we missed
 * If your test code is larger that your production code, you are on the right track
 
 * This takes initially a little more time but the rewards in the long run are huge
+
+### Links
+
+* http://pythontesting.net/podcast/pytest-vs-unittest-vs-nose-pt002/
+
