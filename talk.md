@@ -539,4 +539,5 @@ and which lines that we missed
 ### Links
 
 * http://pythontesting.net/podcast/pytest-vs-unittest-vs-nose-pt002/
+* http://mathieu.agopian.info/presentations/2015_06_djangocon_europe
 
