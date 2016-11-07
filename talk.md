@@ -149,7 +149,7 @@ To add new functionality, e.g. a function
     #calculate.py
     def add(a, b):
         """Return sum of two arguments
-        >>> add(1, 1)
+        >>> add(1, 1) #doctest: +SKIP
         2
         >>>
         """
@@ -157,10 +157,11 @@ To add new functionality, e.g. a function
 
     def sub(a, b):
         """Return difference of two arguments
-        >>> sub(1, 1)
+        >>> sub(1, 1) #doctest: +SKIP
         0
         """
         return a + b
+
 ```
 
 can you see the bug?

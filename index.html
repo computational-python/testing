@@ -118,6 +118,9 @@
         padding-top: 1em;
       }
     </style>
+    <script type="text/javascript"
+      src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+    </script>
 
   </head>
   <body>
@@ -285,7 +288,7 @@ To add new functionality, e.g. a function
     #calculate.py
     def add(a, b):
         &#34;&#34;&#34;Return sum of two arguments
-        &gt;&gt;&gt; add(1, 1)
+        &gt;&gt;&gt; add(1, 1) #doctest: +SKIP
         2
         &gt;&gt;&gt;
         &#34;&#34;&#34;
@@ -293,10 +296,11 @@ To add new functionality, e.g. a function
 
     def sub(a, b):
         &#34;&#34;&#34;Return difference of two arguments
-        &gt;&gt;&gt; sub(1, 1)
+        &gt;&gt;&gt; sub(1, 1) #doctest: +SKIP
         0
         &#34;&#34;&#34;
         return a + b
+
 ```
 
 can you see the bug?
@@ -675,6 +679,7 @@ and which lines that we missed
 ### Links
 
 * http://pythontesting.net/podcast/pytest-vs-unittest-vs-nose-pt002/
+* http://mathieu.agopian.info/presentations/2015_06_djangocon_europe
 
     </textarea>
 
@@ -688,17 +693,6 @@ and which lines that we missed
           highlightStyle: 'sunburst',
           highlightLanguage: 'remark'
         }) ;
-    </script>
-    <script type="text/javascript">
-      var _gaq = _gaq || [];
-      _gaq.push(['_setAccount', 'UA-44561333-1']);
-      _gaq.push(['_trackPageview']);
-
-      (function() {
-        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-      })();
     </script>
   </body>
 </html>
