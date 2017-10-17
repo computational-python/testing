@@ -510,6 +510,259 @@ and which lines that we missed
 
 *note*: In this case there was a function not tested.
 
+---
+
+## Pytest
+
+* Understands many styles of tests
+* The most modern testing framework
+* Easy to get started
+* Advanced features
+* It supports test coverage
+* It couples to the python debugger
+
+---
+
+## Example
+
+
+<!--
+```
+>>> from my import *
+
+```
+-->
+
+Define the test
+
+
+```
+>>> def test_my_add():
+...    assert my_add(1, 1) == 2
+
+
+```
+
+Run the test
+
+
+```
+>>> test_my_add()
+
+```
+
+---
+
+Putting this code in a file
+
+`my.py`
+```
+def test_my_add():
+    assert my_add(1, 1) == 2
+```
+
+execute with `py.test`
+
+```
+C:\...> py.test my.py
+```
+
+* Collects everything that looks like a test
+* Executes them one by one
+---
+
+Separate test code and production code
+
+
+`test_my.py`
+```
+import my
+def test_my_add():
+    assert my.add(1, 1) == 2
+```
+
+
+
+`my.py`
+```
+def add(x, y):
+    return x +y
+```
+
+Run the test
+
+```bash
+C:\Users\...> py.test test_my.py
+```
+
+
+---
+
+## Example
+
+```
+>>> def test_leap_year():
+...     assert is_leap_year(2000) == True
+...     assert is_leap_year(1999) == False
+...     assert is_leap_year(1998) == False
+...     assert is_leap_year(1996) == True
+...     assert is_leap_year(1900) == False
+...     assert is_leap_year(1800) == False
+...     assert is_leap_year(1600) == True
+
+```
+```
+>>> test_leap_year()
+
+```
+---
+
+## Test coverage
+
+* Coverage is a measure how much of your code is executed by tests
+* During a test run a coverage library keeps track of executed lines
+* Guides developer where bugs may hide
+
+How it works (pytest)
+* Summary
+
+```
+C:\Users\...> py.test test_my.py --cov my
+```
+
+* Line info
+```
+C:\Users\...> py.test test_my.py --cov my --cov-report=term-missing
+```
+---
+
+* HTML report
+
+```
+C:\Users\...> py.test test_my.py --cov my --cov-report=html
+```
+Open in browser
+
+
+<img src="cov1.png" height="250">
+<img src="cov2.png" height="250">
+
+---
+
+## Fixtures
+
+`test_1.py`
+```
+import pytest
+
+def setup():
+    print('         setup')
+
+def setup_function():
+    print('\n   setup_function')
+
+def setup_module():
+    print('\nsetup_module')
+
+def teardown():
+    print('\n         teardown')
+
+def teardown_function():
+    print('   teardown_function')
+
+def teardown_module():
+    print('teardown_module')
+
+```
+
+setup and teardown functions that are run before and after each test
+
+---
+```
+C:\Users\...> py.test test_1.py -vs
+```
+```
+test_1.py::test_f 
+setup_module
+
+   setup_function
+         setup
+PASSED
+         teardown
+   teardown_function
+
+test_1.py::test_g 
+   setup_function
+         setup
+PASSED
+         teardown
+   teardown_function
+teardown_module
+
+```
+---
+`test_2.py`
+```
+
+@pytest.fixture
+def before():
+    print('      before')
+    yield None
+    print('      after')
+
+@pytest.fixture(params=[1,2])
+def return_value(request):
+    print('      return_value')
+    return = 3.14*request.param
+
+def test_this(before):
+    print('            ', end='')
+
+def test_that(return_value):
+    print('            ', end='')
+    print(return_value, end='')
+
+```
+
+- more advanced pytest features
+
+---
+```
+C:\Users\...> py.test test_2.py -vs
+```
+```
+test_2.py::test_this 
+setup_module
+
+   setup_function
+      before
+         setup
+            PASSED
+         teardown
+      after
+   teardown_function
+
+test_2.py::test_that[1] 
+   setup_function
+      return_value
+         setup
+            3.14PASSED
+         teardown
+   teardown_function
+
+test_2.py::test_that[2] 
+   setup_function
+      return_value
+         setup
+            6.28PASSED
+         teardown
+   teardown_function
+teardown_module
+
+```
+---
+
+
 
 ---
 
