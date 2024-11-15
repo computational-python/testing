@@ -3,11 +3,12 @@
   <head>
     <title></title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <style type="text/css">
-      @import url(http://fonts.googleapis.com/css?family=Droid+Serif);
-      @import url(http://fonts.googleapis.com/css?family=Yanone+Kaffeesatz);
-      @import url(http://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700,400italic);
+      @import url(https://fonts.googleapis.com/css?family=Droid+Serif);
+      @import url(https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz);
+      @import url(https://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700,400italic);
 
       body {
         font-family: 'Droid Serif';
@@ -122,6 +123,7 @@
       src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
     </script>
 
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
   </head>
   <body>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
@@ -130,6 +132,20 @@
     <script>
         
     </script>
+    <style>
+.centered {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+</style>
+<link rel="stylesheet" href="/testing/refreeze/js/highlight/styles/gruvbox-light.css">
+<script src="/testing/refreeze/js/highlight/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<script type="text/javascript"
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
     <textarea id="source">
 name: inverse
 layout: true
@@ -142,6 +158,7 @@ class: center, middle, inverse
 Computational Python
 
 ---
+layout: false
 
 layout: false
 
@@ -155,7 +172,7 @@ layout: false
 * It makes for a better design
 * Code will never be written that is difficult to test
 * Code tends get better structure
-* It&#39;s what professionals do
+* It's what professionals do
 * Because it saves time and money
 
 ---
@@ -217,18 +234,18 @@ To add new functionality, e.g. a function
 ```
     #calculate.py
     def add(a, b):
-        &#34;&#34;&#34;Return sum of two arguments
-        &gt;&gt;&gt; add(1, 1) #doctest: +SKIP
+        """Return sum of two arguments
+        >>> add(1, 1) #doctest: +SKIP
         2
-        &gt;&gt;&gt;
-        &#34;&#34;&#34;
+        >>>
+        """
         return a + b
 
     def sub(a, b):
-        &#34;&#34;&#34;Return difference of two arguments
-        &gt;&gt;&gt; sub(1, 1) #doctest: +SKIP
+        """Return difference of two arguments
+        >>> sub(1, 1) #doctest: +SKIP
         0
-        &#34;&#34;&#34;
+        """
         return a + b
 
 ```
@@ -241,7 +258,7 @@ can you see the bug?
 At the end of the file
 
 ```    
-    if __name__ == &#34;__main__&#34;:
+    if __name__ == "__main__":
         import doctest
         doctest.testmod()
 ```
@@ -253,7 +270,7 @@ On the command line
 ```
 * All code in the file is executed
     * Functions are defined
-    * `__name__ == &#34;__main__&#34;` evaluates to `True`
+    * `__name__ == "__main__"` evaluates to `True`
     * Test are run
 
 ---
@@ -261,7 +278,7 @@ On the command line
 ``` 
     $ python calculate.py
     **********************************************************************
-    File &#34;calculate.py&#34;, line 14, in __main__.sub
+    File "calculate.py", line 14, in __main__.sub
     Failed example:
         sub(1, 1)
     Expected:
@@ -277,7 +294,7 @@ On the command line
 
 Correct the bug
 ```
-        return a + b -&gt; return a - b
+        return a + b -> return a - b
 ```
 Rerun
 
@@ -343,7 +360,7 @@ well defined task
             ...
         def test_that(self):
             ...
-    if __name__ == &#34;__main__&#34;:
+    if __name__ == "__main__":
         unittest.main()
 ```
 
@@ -366,7 +383,7 @@ well defined task
             res = calculate.sub(1, 1)
             self.assertEqual(res, 0)
 
-    if __name__ == &#34;__main__&#34;:
+    if __name__ == "__main__":
         unittest.main()
 
 ```
@@ -380,7 +397,7 @@ well defined task
     FAIL: testsub (__main__.TestCalculate)
     ----------------------------------------------------------------------
     Traceback (most recent call last):
-      File &#34;test_calculate.py&#34;, line 18, in testsub
+      File "test_calculate.py", line 18, in testsub
         self.assertEqual(res, 0)
     AssertionError: 2 != 0
 
@@ -402,7 +419,7 @@ well defined task
     FAIL: testsub (__main__.TestCalculate)
     ----------------------------------------------------------------------
     Traceback (most recent call last):
-      File &#34;test_calculate.py&#34;, line 18, in testsub
+      File "test_calculate.py", line 18, in testsub
         self.assertEqual(res, 0)
     AssertionError: 2 != 0
 
@@ -417,7 +434,7 @@ well defined task
 
 ### Fix the bug
 ```
-    return a + b -&gt; return a - b
+    return a + b -> return a - b
 ```
 --
 
@@ -483,14 +500,14 @@ OK
     from calculate import div
 
     def test_div3():
-        &#34;&#34;&#34;Test integer division&#34;&#34;&#34;
+        """Test integer division"""
         res = div(1, 3)
         assert res == 0
 
     def test_div4():
-        &#34;&#34;&#34;Test floating point division&#34;&#34;&#34;
+        """Test floating point division"""
         res = div(1., 3)
-        assert abs(res - 0.333333) &lt; 1e-6
+        assert abs(res - 0.333333) < 1e-6
 
 ```
 
@@ -539,8 +556,8 @@ test_div.py::test_div4 PASSED                                            [100%]
 
 ```
     $ pytest  test_calculate.py  --pdb
-    .&gt; /usr/lib/python2.7/unittest/case.py(508)_baseAssertEqual()
-    -&gt; raise self.failureException(msg)
+    .> /usr/lib/python2.7/unittest/case.py(508)_baseAssertEqual()
+    -> raise self.failureException(msg)
     (Pdb)
 ```
 
@@ -585,18 +602,18 @@ and which lines that we missed
 ## Example
 
 
-&lt;!--
+<!--
 ```
-&gt;&gt;&gt; from my import *
+>>> from my import *
 
 ```
---&gt;
+-->
 
 Define the test
 
 
 ```
-&gt;&gt;&gt; def test_my_add():
+>>> def test_my_add():
 ...    assert my_add(1, 1) == 2
 
 
@@ -606,7 +623,7 @@ Run the test
 
 
 ```
-&gt;&gt;&gt; test_my_add()
+>>> test_my_add()
 
 ```
 
@@ -623,7 +640,7 @@ def test_my_add():
 execute with `py.test`
 
 ```
-C:\...&gt; py.test my.py
+C:\...> py.test my.py
 ```
 
 * Collects everything that looks like a test
@@ -651,7 +668,7 @@ def add(x, y):
 Run the test
 
 ```bash
-C:\Users\...&gt; py.test test_my.py
+C:\Users\...> py.test test_my.py
 ```
 
 
@@ -660,7 +677,7 @@ C:\Users\...&gt; py.test test_my.py
 ## Example
 
 ```
-&gt;&gt;&gt; def test_leap_year():
+>>> def test_leap_year():
 ...     assert is_leap_year(2000) == True
 ...     assert is_leap_year(1999) == False
 ...     assert is_leap_year(1998) == False
@@ -671,7 +688,7 @@ C:\Users\...&gt; py.test test_my.py
 
 ```
 ```
-&gt;&gt;&gt; test_leap_year()
+>>> test_leap_year()
 
 ```
 ---
@@ -686,25 +703,25 @@ How it works (pytest)
 * Summary
 
 ```
-C:\Users\...&gt; py.test test_my.py --cov my
+C:\Users\...> py.test test_my.py --cov my
 ```
 
 * Line info
 ```
-C:\Users\...&gt; py.test test_my.py --cov my --cov-report=term-missing
+C:\Users\...> py.test test_my.py --cov my --cov-report=term-missing
 ```
 ---
 
 * HTML report
 
 ```
-C:\Users\...&gt; py.test test_my.py --cov my --cov-report=html
+C:\Users\...> py.test test_my.py --cov my --cov-report=html
 ```
 Open in browser
 
 
-&lt;img src=&#34;/testing/img/cov1.png&#34; height=&#34;250&#34;&gt;
-&lt;img src=&#34;/testing/img/cov2.png&#34; height=&#34;250&#34;&gt;
+<img src="/testing/img/cov1.png" height="250">
+<img src="/testing/img/cov2.png" height="250">
 
 ---
 
@@ -739,9 +756,10 @@ Open in browser
     <script src="/testing/refreeze/js/high.js" type="text/javascript"></script>
     <script type="text/javascript">
       var slideshow = remark.create({
-          highlightStyle: 'sunburst',
+          highlightStyle: 'gmd',
           highlightLanguage: 'remark'
         }) ;
     </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
   </body>
 </html>
