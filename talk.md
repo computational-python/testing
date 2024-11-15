@@ -11,54 +11,14 @@ layout: false
 
 ## Why testing?
 
---
 
 * Make sure the code is correct.
---
-
-
 * Testing is a design tool
---
-
-
 * Testing is a documentation tool
-
-
----
-
-class: middle, center
-
-## TDD = Test-Driven Development 
-
----
-
-## What's special about TDD
-
-There are several aspects
-
---
-
 * It makes for a better design
---
-
-
 * Code will never be written that is difficult to test
---
-
-
 * Code tends get better structure
---
-
-
-* Unconciously you do not want to find bugs - testing existing code tends to focus on the parts which work best.
---
-
-
-
 * It's what professionals do
---
-
-
 * Because it saves time and money
 
 ---
@@ -68,11 +28,8 @@ There are several aspects
 To add new functionality, e.g. a function
 
 * Make up in your mind what the function should do
-
 * What input
-
 * What output
-
 * Do not code the function
 --
 
@@ -82,9 +39,7 @@ To add new functionality, e.g. a function
 * First Write a test that 
 
     - Calls the function
-
     - Compares the actual output to the desired output
-
     - Report if they differ
 
 ---
@@ -92,29 +47,12 @@ To add new functionality, e.g. a function
 ## The work cycle
 
 * Run the test 
---
-
-
 * Did it fail?
---
-
-
     - The first time it fails because the function does not exist
---
-
     - Add code to the function with the purpose of passing the test and nothing more
---
-
     - Start over
---
-
-
 * Did it pass?
---
-
     - Stop
---
-
     - Do not write more code. You are done.
 
 ---
@@ -124,11 +62,7 @@ To add new functionality, e.g. a function
 ### Tools for testing python code
 
 * doctest: a  simple way of including tests in a doc-string of a function
-
 * unittest: a module of the standard python library to provide advanced testing
-
-* nosetests: a commonly used third-party tool for running tests
-
 * pytest: a commonly used third-party tool for running tests
 
 ---
@@ -136,9 +70,7 @@ To add new functionality, e.g. a function
 ## Doctest
 
 * Simple test cases can be provided as part of the documentation string
-
 * Cut and paste an interactive session known to give true result
-
 * The doctest module executes the example from the interactive session as a test case
 * Test on string output and not values - small changes in formatting will case tests to fail
 
@@ -386,11 +318,11 @@ OK
 
 ---
 
-### `nosetests`
+### `pytest`
 
 #### Another testing framework
 
-* Nosetests is a third-party unit-testing tool for python (from http://ivory.idyll.org/articles/nose-intro.html)
+* Pytest is a third-party unit-testing tool for python
 
 * It looks for all tests in the current directory (and subdirectories and executes functions containing test)
 
@@ -398,7 +330,7 @@ OK
 
 * Not as strict about setting up tests (as class members)
 
-* nosetests understands unittest style tests and executes them as well. 
+* pytest understands unittest style tests and executes them as well. 
 
 * Without arguments all test are carried out which it can find
 
@@ -427,9 +359,9 @@ OK
 
 
 ---
-### Running ``nosetests``
+### Running ``pytest``
 ```
-    $ nosetests  testdiv_alt.py
+    $ pytest  testdiv_alt.py
     ..
     ----------------------------------------------------------------------
     Ran 2 tests in 0.000s
@@ -442,28 +374,34 @@ Each dot represents a passed test, an ``F`` is a failed test
 
 or verbose
 ```
-    $ nosetests -v testdiv_alt.py
-    Test integer division ... ok
-    Test floating point division ... ok
+$ pytest -v testdiv_alt.py
+============================= test session starts ==============================
+platform linux -- Python 3.12.0, pytest-8.3.3, pluggy-1.5.0 -- /home/olav/.pyenv/versions/slides/bin/python3
+cachedir: .pytest_cache
+rootdir: /home/olav/Courses/comppy/slides/testing
+plugins: cov-6.0.0, anyio-4.3.0
+collecting ... collected 2 items
 
-    ----------------------------------------------------------------------
-    Ran 2 tests in 0.002s
+test_div.py::test_div3 PASSED                                            [ 50%]
+test_div.py::test_div4 PASSED                                            [100%]
 
-    OK
+============================== 2 passed in 0.02s ===============================
+
+
 ```
 
 *Note:* docstring is used in the  error report
 
 ---
 
-### Nosetests and the debugger
+### Pytest and the debugger
 
-* By running nosetests with a debug option, it runs all tests. 
+* By running pytest with a debug option, it runs all tests. 
 
 * When a test fails the program stops and launches the debugger where the error condition was detected
 
 ```
-    $ nosetests  test_calculate.py  --pdb
+    $ pytest  test_calculate.py  --pdb
     .> /usr/lib/python2.7/unittest/case.py(508)_baseAssertEqual()
     -> raise self.failureException(msg)
     (Pdb)
@@ -481,28 +419,12 @@ Once in the debugger it is possible to examine variables, execute functions
 
 ---
 
-### Nosetest and coverage
+### Pytest and coverage
 
 coverage is a relative measure of how many of your lines of codes have been executed during the tests
 
 ```
-    $ nosetests test_calculate.py --with-coverage
-    .F
-    ======================================================================
-    FAIL: testsub (test_calculate.TestCalculate)
-    ----------------------------------------------------------------------
-    Traceback (most recent call last):
-      File "/home/olav/Dropbox/Python/hieroglyph/test_calculate.py", line 18, in testsub
-	self.assertEqual(res, 0)
-    AssertionError: 2 != 0
-
-    Name        Stmts   Miss  Cover   Missing
-    -----------------------------------------
-    calculate      10      3    70%   25, 28-29
-    ----------------------------------------------------------------------
-    Ran 2 tests in 0.001s
-
-    FAILED (failures=1)
+    $ pytest test_calculate.py --cov calculate
 ```
 
 We get a list over all modules that have been executed and, how many lines,
@@ -649,149 +571,25 @@ Open in browser
 
 ---
 
-## Fixtures
-
-`test_1.py`
-```
-import pytest
-
-def setup():
-    print('         setup')
-
-def setup_function():
-    print('\n   setup_function')
-
-def setup_module():
-    print('\nsetup_module')
-
-def teardown():
-    print('\n         teardown')
-
-def teardown_function():
-    print('   teardown_function')
-
-def teardown_module():
-    print('teardown_module')
-
-```
-
-setup and teardown functions that are run before and after each test
-
----
-```
-C:\Users\...> py.test test_1.py -vs
-```
-```
-test_1.py::test_f 
-setup_module
-
-   setup_function
-         setup
-PASSED
-         teardown
-   teardown_function
-
-test_1.py::test_g 
-   setup_function
-         setup
-PASSED
-         teardown
-   teardown_function
-teardown_module
-
-```
----
-`test_2.py`
-```
-
-@pytest.fixture
-def before():
-    print('      before')
-    yield None
-    print('      after')
-
-@pytest.fixture(params=[1,2])
-def return_value(request):
-    print('      return_value')
-    return = 3.14*request.param
-
-def test_this(before):
-    print('            ', end='')
-
-def test_that(return_value):
-    print('            ', end='')
-    print(return_value, end='')
-
-```
-
-- more advanced pytest features
-
----
-```
-C:\Users\...> py.test test_2.py -vs
-```
-```
-test_2.py::test_this 
-setup_module
-
-   setup_function
-      before
-         setup
-            PASSED
-         teardown
-      after
-   teardown_function
-
-test_2.py::test_that[1] 
-   setup_function
-      return_value
-         setup
-            3.14PASSED
-         teardown
-   teardown_function
-
-test_2.py::test_that[2] 
-   setup_function
-      return_value
-         setup
-            6.28PASSED
-         teardown
-   teardown_function
-teardown_module
-
-```
----
-
-
-
----
 
 ### Recommendation
 
 * Use ``doctest`` for small illustrations, if any
 
-* Use ``unittest`` to code your tests, 
-
-* Use ``nosetests`` or `py.test` to execute your tests, optionally with debugging and coverage
+* Use `pytest` to execute your tests, optionally with debugging and coverage
 
 ---
 
 ### Final tip
 
 * Embrace the TDD philosphy, write test before code.
-
 * Document code and modules - be kind to your future self.
-
 * For good programming style, consider PEP 8, http://www.python.org/dev/peps/pep-0008/
-
 * Be obsessive about testing
-
 * If your test code is larger that your production code, you are on the right track
-
 * This takes initially a little more time but the rewards in the long run are huge
 
 ### Links
 
-* http://pythontesting.net/podcast/pytest-vs-unittest-vs-nose-pt002/
-* http://mathieu.agopian.info/presentations/2015_06_djangocon_europe
-
+* https://pytest.org
+* https://testandcode.com
