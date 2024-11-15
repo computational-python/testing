@@ -1,7 +1,5 @@
 # Testing
 
-## Olav Vahtras
-
 Computational Python
 
 ---
@@ -566,8 +564,8 @@ C:\Users\...> py.test test_my.py --cov my --cov-report=html
 Open in browser
 
 
-<img src="cov1.png" height="250">
-<img src="cov2.png" height="250">
+<img src="img/cov1.png" height="250">
+<img src="img/cov2.png" height="250">
 
 ---
 
