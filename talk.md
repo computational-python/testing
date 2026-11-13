@@ -448,7 +448,7 @@ and which lines that we missed
 
 <!--
 ```
->>> from my import *
+>>> from my import my_add
 
 ```
 -->
@@ -521,6 +521,7 @@ C:\Users\...> py.test test_my.py
 ## Example
 
 ```
+>>> from leap import is_leap_year
 >>> def test_leap_year():
 ...     assert is_leap_year(2000) == True
 ...     assert is_leap_year(1999) == False

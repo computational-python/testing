@@ -235,7 +235,7 @@ To add new functionality, e.g. a function
     #calculate.py
     def add(a, b):
         """Return sum of two arguments
-        >>> add(1, 1) #doctest: +SKIP
+        >>> add(1, 1) 
         2
         >>>
         """
@@ -243,7 +243,7 @@ To add new functionality, e.g. a function
 
     def sub(a, b):
         """Return difference of two arguments
-        >>> sub(1, 1) #doctest: +SKIP
+        >>> sub(1, 1) 
         0
         """
         return a + b
@@ -604,7 +604,7 @@ and which lines that we missed
 
 <!--
 ```
->>> from my import *
+>>> from my import my_add
 
 ```
 -->
@@ -677,6 +677,7 @@ C:\Users\...> py.test test_my.py
 ## Example
 
 ```
+>>> from leap import is_leap_year
 >>> def test_leap_year():
 ...     assert is_leap_year(2000) == True
 ...     assert is_leap_year(1999) == False
