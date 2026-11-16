@@ -42,7 +42,7 @@ To add new functionality, e.g. a function
 
 ---
 
-## The work cycle
+### The work cycle
 
 * Run the test 
 * Did it fail?
@@ -74,7 +74,7 @@ To add new functionality, e.g. a function
 
 ---
 
-## Example
+### Example
 ```
     #calculate.py
     def add(a, b):
@@ -98,29 +98,22 @@ can you see the bug?
 
 ---
 
-## Running doctest
-At the end of the file
-
-```    
-    if __name__ == "__main__":
-        import doctest
-        doctest.testmod()
-```
+### Running doctest
 
 On the command line
 
+```    
+$ python -m doctest calculate.py
 ```
-    $ python calculate.py
-```
+
 * All code in the file is executed
     * Functions are defined
-    * `__name__ == "__main__"` evaluates to `True`
     * Test are run
 
 ---
 ### The output
 ``` 
-    $ python calculate.py
+    $ python -m doctest calculate.py
     **********************************************************************
     File "calculate.py", line 14, in __main__.sub
     Failed example:
@@ -143,14 +136,14 @@ Correct the bug
 Rerun
 
 ```
-    $ python calculate.py
+    $ python -m doctest calculate.py
     $
 ```
 silent - all ok
 
 ---
 
-## Conclusion - doctests
+### Conclusion - doctests
 
 * Very easy to include testning into your code
 
@@ -212,23 +205,24 @@ well defined task
 
 ### Example
 
+
+`test_calculate.py`
 ```python
-    #test_calculate.py
-    import unittest
-    import calculate
+import unittest
+import calculate
 
-    class TestCalculate(unittest.TestCase):
-        
-        def testadd(self):
-            res = calculate.add(1, 1)
-            self.assertEqual(res, 2)
+class TestCalculate(unittest.TestCase):
+    
+    def testadd(self):
+        res = calculate.add(1, 1)
+        self.assertEqual(res, 2)
 
-        def testsub(self):
-            res = calculate.sub(1, 1)
-            self.assertEqual(res, 0)
+    def testsub(self):
+        res = calculate.sub(1, 1)
+        self.assertEqual(res, 0)
 
-    if __name__ == "__main__":
-        unittest.main()
+if __name__ == "__main__":
+    unittest.main()
 
 ```
 ---
@@ -295,7 +289,7 @@ OK
 ```
 
 ---
-## Other helper functions tests
+### Other helper functions tests
 
 * ``assertNotEqual``
 
@@ -312,21 +306,26 @@ OK
          self.assertAlmostEqual(res, 0.333333, 6)
 ```
 
-* see also http://docs.python.org/2/library/unittest.html 
+* see also http://docs.python.org/library/unittest.html 
 
 ---
 
-### `pytest`
+## pytest
 
-#### Another testing framework
 
 * Pytest is a third-party unit-testing tool for python
 
+* Understands many styles of tests
+* Not as strict about setting up tests (as class members)
+* The most modern testing framework
+* Easy to get started
+* Advanced features
+* It supports test coverage
+* It couples to the python debugger
 * It looks for all tests in the current directory (and subdirectories and executes functions containing test)
-
 * It is compatible with the `unittest` framework so it executes those tests as well
 
-* Not as strict about setting up tests (as class members)
+---
 
 * pytest understands unittest style tests and executes them as well. 
 
@@ -339,38 +338,41 @@ OK
 ---
 
 ### Example
+
 ```
-    #testdiv_alt.py
-    from calculate import div
+#testdiv_alt.py
+from calculate import div
 
-    def test_div3():
-        """Test integer division"""
-        res = div(1, 3)
-        assert res == 0
+def test_div3():
+    """Test integer division"""
+    res = div(1, 3)
+    assert res == 0
 
-    def test_div4():
-        """Test floating point division"""
-        res = div(1., 3)
-        assert abs(res - 0.333333) < 1e-6
+def test_div4():
+    """Test floating point division"""
+    res = div(1., 3)
+    assert abs(res - 0.333333) < 1e-6
 
 ```
 
 
 ---
-### Running ``pytest``
-```
-    $ pytest  testdiv_alt.py
-    ..
-    ----------------------------------------------------------------------
-    Ran 2 tests in 0.000s
 
-    OK
+### Running pytest
 
 ```
+$ pytest  testdiv_alt.py
+..
+----------------------------------------------------------------------
+Ran 2 tests in 0.000s
 
-Each dot represents a passed test, an ``F`` is a failed test
+OK
 
-or verbose
+```
+
+* each dot represents a passed test, an ``F`` is a failed test
+* more information with verbose flag 
+
 ```
 $ pytest -v testdiv_alt.py
 ============================= test session starts ==============================
@@ -399,51 +401,31 @@ test_div.py::test_div4 PASSED                                            [100%]
 * When a test fails the program stops and launches the debugger where the error condition was detected
 
 ```
-    $ pytest  test_calculate.py  --pdb
-    .> /usr/lib/python2.7/unittest/case.py(508)_baseAssertEqual()
-    -> raise self.failureException(msg)
-    (Pdb)
+$ pytest -v test_calculate.py
+======================================= test session starts =======================================
+...
+
+test_calculate.py::test_add PASSED                                                          [ 50%]
+test_calculate.py::test_sub FAILED                                                          [100%]
+...
+test_calculate.py:11: AssertionError
+-> assert result == expected
+(Pdb)
 ```
 
 
 Once in the debugger it is possible to examine variables, execute functions
 
 ```
-    (Pdb) print res
-    2
-    (Pdb) print calculate.sub(2, 1)
-    3
+(Pdb) print res
+2
+(Pdb) print calculate.sub(2, 1)
+3
 ```
 
 ---
 
-### Pytest and coverage
-
-coverage is a relative measure of how many of your lines of codes have been executed during the tests
-
-```
-    $ pytest test_calculate.py --cov calculate
-```
-
-We get a list over all modules that have been executed and, how many lines,
-and which lines that we missed
-
-*note*: In this case there was a function not tested.
-
----
-
-## Pytest
-
-* Understands many styles of tests
-* The most modern testing framework
-* Easy to get started
-* Advanced features
-* It supports test coverage
-* It couples to the python debugger
-
----
-
-## Example
+### Example
 
 
 <!--
@@ -481,10 +463,10 @@ def test_my_add():
     assert my_add(1, 1) == 2
 ```
 
-execute with `py.test`
+execute with `pytest`
 
 ```
-C:\...> py.test my.py
+$ pytest my.py
 ```
 
 * Collects everything that looks like a test
@@ -512,13 +494,13 @@ def add(x, y):
 Run the test
 
 ```bash
-C:\Users\...> py.test test_my.py
+$ pytest test_my.py
 ```
 
 
 ---
 
-## Example
+### Example
 
 ```
 >>> from leap import is_leap_year
@@ -538,7 +520,7 @@ C:\Users\...> py.test test_my.py
 ```
 ---
 
-## Test coverage
+### Test coverage
 
 * Coverage is a measure how much of your code is executed by tests
 * During a test run a coverage library keeps track of executed lines
@@ -547,21 +529,24 @@ C:\Users\...> py.test test_my.py
 How it works (pytest)
 * Summary
 
-```
-C:\Users\...> py.test test_my.py --cov my
+```bash
+$ pytest test_my.py --cov my
 ```
 
 * Line info
+
+```bash
+$ pytest test_my.py --cov my --cov-report=term-missing
 ```
-C:\Users\...> py.test test_my.py --cov my --cov-report=term-missing
-```
+
 ---
 
 * HTML report
 
+```bash
+$ pytest test_my.py --cov my --cov-report=html
 ```
-C:\Users\...> py.test test_my.py --cov my --cov-report=html
-```
+
 Open in browser
 
 
@@ -571,15 +556,14 @@ Open in browser
 ---
 
 
-### Recommendation
+## Recommendation
 
 * Use ``doctest`` for small illustrations, if any
-
 * Use `pytest` to execute your tests, optionally with debugging and coverage
 
 ---
 
-### Final tip
+## Final tip
 
 * Embrace the TDD philosphy, write test before code.
 * Document code and modules - be kind to your future self.
@@ -588,7 +572,6 @@ Open in browser
 * If your test code is larger that your production code, you are on the right track
 * This takes initially a little more time but the rewards in the long run are huge
 
-### Links
+## Links
 
 * https://pytest.org
-* https://testandcode.com
